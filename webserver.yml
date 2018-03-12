@@ -4,7 +4,7 @@ metadata:
   name: webserver
 spec:
   containers:
-    - image: apcerademos/aws-webserver
+    - image: apcerademos/pi-webserver
       name: webserver
       ports:
         - containerPort: 9100

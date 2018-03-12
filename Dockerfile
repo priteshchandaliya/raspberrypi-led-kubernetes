@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM resin/raspberry-pi-alpine-golang
 RUN mkdir /app
 ADD . /app/
 WORKDIR /app

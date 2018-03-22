@@ -11,9 +11,8 @@ GPIO.setup(18, GPIO.OUT)
 GPIO.setup(25, GPIO.IN)
 
 # clear lights and webserver counters
-#print("clear light and reset counters")
 GPIO.output(18, LED_off)
-requests.get('http://nanolab.bagel.buffalo.im/reset')
+requests.get('http://aws-webserver/reset')
 requests.get('http://localhost:9100/reset')
 
 while True:
@@ -27,8 +26,8 @@ while True:
 
         if counter == 1:
                 #print("-><-  aws")
-                requests.get('http://nanolab.bagel.buffalo.im/push?temp=20')
-                response = requests.get('http://nanolab.bagel.buffalo.im/get')
+                requests.get('http://aws-webserver/push?temp=100')
+                response = requests.get('http://aws-webserver/get')
                 if response.text == "25":
                         GPIO.output(18, LED_on)
                         time.sleep(4)
@@ -36,7 +35,7 @@ while True:
 
         if counter == 2:
                 #print("-><- edge (local)")
-                requests.get('http://localhost:9100/push?temp=20')
+                requests.get('http://localhost:9100/push?temp=100')
                 response = requests.get('http://localhost:9100/get')
                 if response.text == "25":
                         GPIO.output(18, LED_on)
@@ -45,6 +44,6 @@ while True:
                 print("Test Complete")
                 GPIO.output(18, LED_off)
                 GPIO.cleanup()
-                requests.get('http://nanolab.bagel.buffalo.im/reset')
+                requests.get('http://aws-webserver/reset')
                 requests.get('http://localhost:9100/reset')
                 break
